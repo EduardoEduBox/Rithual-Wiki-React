@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* In your global.css file or equivalent */
+@font-face {
+  font-family: 'DialetoAncestral';
+  src: url('/Font/DialetoAncestral-Regular.otf') format('opentype'),
+       url('/Font/DialetoAncestral-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: #1c1c1c;
+  overflow-x: hidden;
+  
+}
+
+/* scroll bar edit */
+::-webkit-scrollbar {
+  width: 1vh;
+  height: 1.7vh;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 1vw;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 1vh;
+  width: 5vw;
+}
+::-webkit-scrollbar-thumb {
+  background: gray;
+}
+/* scroll bar edit */
+
+.vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* position dots in gallery */
+.flickity-page-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  bottom: 0px;
+}
+/* white circles */
+.flickity-page-dots .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 5000vh;
+  background-color: black;
+  opacity: 50%;
+}
+/* fill-in selected dot */
+.flickity-page-dots .dot.is-selected {
+  background: white;
+}
+
+/* buttons */
+/* no circle */
+.flickity-button {
+  position: absolute;
+  top: 55%;
+  opacity: 50%;
+}
+/* big previous & next buttons */
+.flickity-prev-next-button {
+  width: 70px;
+  height: 70px;
+}
+/* icon color */
+.flickity-button-icon {
+  fill: white;
+}
+/* hide disabled button */
+.flickity-button:disabled {
+  display: none;
+}
+
+/* position outside */
+.flickity-prev-next-button.previous {
+  left: 1rem;
+}
+.flickity-prev-next-button.next {
+  right: 1rem;
+}
+
+/* Custom CSS */
+.text-glow-pink {
+  text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.text-glow-green {
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.text-glow-orange {
+  text-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+}
+
+.upAnimation {
+  top: -20px;
+}
+
+.swal2-image {
+  border-bottom: solid 8px pink;
+  border-radius: 50vh;
+}
