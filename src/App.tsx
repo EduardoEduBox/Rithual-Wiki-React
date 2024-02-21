@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Navbar from "./components/NavBar";
 import Header from "./components/Header";
 import CharacterSection from "./components/CharacterSection";
@@ -7,17 +7,9 @@ import ChapterSection from "./components/ChapterSection";
 import Loading from "./Loading";
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(false);
-  //   }, 5000);
-  // }, []);
-
   return (
     <>
-      <Loading loading={loading} />
+      <Loading />
 
       <Navbar />
       <Header />

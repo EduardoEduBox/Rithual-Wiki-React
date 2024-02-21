@@ -3,31 +3,25 @@ import { LuEye } from "react-icons/lu";
 import Typewriter from "typewriter-effect";
 import gsap from "gsap";
 
-type LoadingProps = {
-  loading: boolean;
-};
-
-const Loading: React.FC<LoadingProps> = ({ loading }) => {
+const Loading: React.FC = () => {
   const texts = ["Carregando.....", "Renderizando o universo.....", "Pronto!"];
   const [percentage, setPercentage] = useState(0);
   const [transitionStart, setTransitionStart] = useState(false);
   const welcomeRef = useRef(null);
 
   useEffect(() => {
-    if (loading) {
-      let currentPercentage = 0;
-      const interval = setInterval(() => {
-        currentPercentage += 1;
-        setPercentage(currentPercentage);
-        if (currentPercentage >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setTransitionStart(true), 1000);
-        }
-      }, 45);
+    let currentPercentage = 0;
+    const interval = setInterval(() => {
+      currentPercentage += 1;
+      setPercentage(currentPercentage);
+      if (currentPercentage >= 100) {
+        clearInterval(interval);
+        setTimeout(() => setTransitionStart(true), 1000);
+      }
+    }, 45);
 
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (transitionStart) {
@@ -74,7 +68,7 @@ const Loading: React.FC<LoadingProps> = ({ loading }) => {
     if (transitionStart) {
       setTimeout(() => {
         gsap.to(container.current, {
-          duration: 2,
+          duration: 1.5,
           opacity: 0,
           ease: "back.out(1.7)",
           onComplete: () => {
@@ -101,28 +95,26 @@ const Loading: React.FC<LoadingProps> = ({ loading }) => {
           <div className="flex flex-col items-center justify-center">
             <LuEye className="text-white text-8xl lg:text-8xl animate-spin" />
             <div className="mt-8 text-2xl font-semibold">
-              {loading && (
-                <Typewriter
-                  options={{
-                    autoStart: true,
-                    loop: false,
-                    cursor: "",
-                    delay: 20,
-                    deleteSpeed: 0,
-                  }}
-                  onInit={(typewriter) => {
-                    typewriter
-                      .typeString(texts[0])
-                      .pauseFor(300)
-                      .deleteAll()
-                      .typeString(texts[1])
-                      .pauseFor(300)
-                      .deleteAll()
-                      .typeString(texts[2])
-                      .start();
-                  }}
-                />
-              )}
+              <Typewriter
+                options={{
+                  autoStart: true,
+                  loop: false,
+                  cursor: "",
+                  delay: 20,
+                  deleteSpeed: 0,
+                }}
+                onInit={(typewriter) => {
+                  typewriter
+                    .typeString(texts[0])
+                    .pauseFor(300)
+                    .deleteAll()
+                    .typeString(texts[1])
+                    .pauseFor(300)
+                    .deleteAll()
+                    .typeString(texts[2])
+                    .start();
+                }}
+              />
             </div>
             <h1 className="mt-5 text-3xl opacity-50">{percentage}%</h1>
           </div>
