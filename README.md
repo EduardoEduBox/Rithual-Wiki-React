@@ -6,6 +6,7 @@ Welcome to the **Rithual Wiki**! This repository contains documentation and guid
 
 - [Introduction](#introduction)
 - [Getting Started](#getting-started)
+- [Tools used](#tools-used)
 - [Features](#features)
 - [Contributions](#contributions)
 - [Team / Contributors](#team--contributors)
