@@ -62,4 +62,4 @@ Your input is valuable! If you have suggestions for improvements or find problem
 ## 🤝 Team / Contributors
 
 - **Eduardo Barbosa (Edubox)** - Creator and Developer of the project.
-- **Samuel Almeida** - Contributor and development assistant of the story. [GitHub Profile](https://github.com/almeidiano)
+- ![Profile Picture of Samuel Almeida](https://github.com/almeidiano.png "Samuel Almeida") **Samuel Almeida** - Contributor and development assistant of the story. [GitHub Profile](https://github.com/almeidiano)
