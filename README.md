@@ -61,5 +61,6 @@ Your input is valuable! If you have suggestions for improvements or find problem
 
 ## 🤝 Team / Contributors
 
-- **Eduardo Barbosa (Edubox)** - Creator and Developer of the project.
-- ![Profile Picture of Samuel Almeida](https://github.com/almeidiano.png "Samuel Almeida") **Samuel Almeida** - Contributor and development assistant of the story. [GitHub Profile](https://github.com/almeidiano)
+- Eduardo Barbosa (Edubox) - Creator and Developer of the project.
+- <img src="https://github.com/almeidiano.png" alt="Profile Picture of Samuel Almeida" title="Samuel Almeida" width="100" height="100" style="border-radius:50%;"/> **Samuel Almeida** - Contributor and development assistant of the story. [GitHub Profile](https://github.com/almeidiano)
+
