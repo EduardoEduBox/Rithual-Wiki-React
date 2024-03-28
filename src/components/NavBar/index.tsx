@@ -48,13 +48,29 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const profilePictures = [
+    "/CharacterSection/profile/Aika Profile.png",
+    "/CharacterSection/profile/Madger Profile.png",
+    "/CharacterSection/profile/Málanus Profile.png",
+    "/CharacterSection/profile/San Profile.png",
+    "/CharacterSection/profile/Singer Profile.png",
+  ];
+
+  const returnRandomCharacterPicture = () => {
+    const result =
+      profilePictures[Math.floor(Math.random() * profilePictures.length)];
+
+    console.log(result);
+
+    return result;
+  };
+
   // rendering the reader in production alert till Rithual reader is ready
   const readerInProduction = () => {
     return Swal.fire({
       title: '<strong style="color: pink">(૨¡Ƭષαℓ Reader</strong> em produção!',
       text: "Estamos desenvolvendo o leitor do Rithual para que você possa ter a melhor experiência lendo esse mangá, enquanto ele não está pronto, você pode ler no Tapas.io",
-      imageUrl:
-        "https://cdn.discordapp.com/attachments/421344962303623189/1146492460294475907/image.png",
+      imageUrl: returnRandomCharacterPicture(),
       background: "rgb(31, 31, 31)",
       color: "white",
       imageWidth: "60%",
@@ -83,7 +99,11 @@ const Navbar = () => {
       </div>
 
       {showNavigation && (
-        <Navigation tracker={tracker} position={isActive ? "left" : "right"} />
+        <Navigation
+          tracker={tracker}
+          position={isActive ? "left" : "right"}
+          toggleNav={toggleNav}
+        />
       )}
 
       {isMobile &&

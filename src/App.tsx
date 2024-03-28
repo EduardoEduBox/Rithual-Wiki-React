@@ -9,7 +9,7 @@ import Loading from "./Loading";
 const App: React.FC = () => {
   return (
     <>
-      <Loading />
+      {/* <Loading /> */}
 
       <Navbar />
       <Header />

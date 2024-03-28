@@ -57,9 +57,9 @@ const CharacterSection: React.FC = () => {
       "Singer Faksumi",
       17,
       "um jovem aventureiro que nasceu no vilarejo Uxclavasa e sonha em conhecer o mundo e as maravilhas do reino de Belgadina e Ázuma!",
-      "public/CharacterSection/profile/Singer Profile.png",
-      "public/CharacterSection/withoutText/Singer withoutText.png",
-      "public/CharacterSection/withText/Singer corpo completo.png",
+      "/CharacterSection/profile/Singer Profile.png",
+      "/CharacterSection/withoutText/Singer withoutText.png",
+      "/CharacterSection/withText/Singer corpo completo.png",
       "lightblue",
       true,
       "lg:h-[100%]"
@@ -69,9 +69,9 @@ const CharacterSection: React.FC = () => {
       "Aika'nu Zumiki",
       19,
       `Ainda sem registros...`,
-      "public/CharacterSection/profile/Aika Profile.png",
-      "public/CharacterSection/withoutText/Aika withoutText.png",
-      "public/CharacterSection/withText/Aika corpo completo.png",
+      "/CharacterSection/profile/Aika Profile.png",
+      "/CharacterSection/withoutText/Aika withoutText.png",
+      "/CharacterSection/withText/Aika corpo completo.png",
       "rgb(255, 223, 239)",
       false,
       "lg:h-[95%]"
@@ -81,9 +81,9 @@ const CharacterSection: React.FC = () => {
       "Madger Yasáshi",
       17,
       "Artista marcial nascido na vila Yasáshi, após uma batalha curta e sangrenta, Madger perdeu pessoas preciosas quando ainda era criança, agora, ele busca honrar aqueles que lutaram por ele em sua antiga vila!",
-      "public/CharacterSection/profile/Madger Profile.png",
-      "public/CharacterSection/withoutText/Madger withoutText.png",
-      "public/CharacterSection/withText/Madger corpo completo.png",
+      "/CharacterSection/profile/Madger Profile.png",
+      "/CharacterSection/withoutText/Madger withoutText.png",
+      "/CharacterSection/withText/Madger corpo completo.png",
       "rgb(186, 235, 186)",
       true,
       "lg:h-[95%]"
@@ -93,13 +93,26 @@ const CharacterSection: React.FC = () => {
       "San Majutsu-shi",
       19,
       `Ainda sem registros...`,
-      "public/CharacterSection/profile/San Profile.png",
-      "public/CharacterSection/withoutText/San withoutText.png",
-      "public/CharacterSection/withText/San corpo completo.png",
+      "/CharacterSection/profile/San Profile.png",
+      "/CharacterSection/withoutText/San withoutText.png",
+      "/CharacterSection/withText/San corpo completo.png",
       "rgb(255, 223, 164)",
       false,
       "lg:h-[99%]"
     ),
+    new Characters(
+      "characterMálanus",
+      "Málanus Faksumi",
+      25,
+      `Irmão mais velho de Singer, Málanus busca se tornar um dos líderes da resistência, para assim, encontrar o misterioso demônio de visor que lhe causou tanta dor.`,
+      "/CharacterSection/profile/Málanus Profile.png",
+      "/CharacterSection/withoutText/Málanus withoutText.png",
+      "/CharacterSection/withText/Málanus corpo completo.png",
+      "rgb(255, 164, 164)",
+      true,
+      "lg:h-[100%]"
+    ),
+
     // Add more characters here...
   ];
 
@@ -296,6 +309,25 @@ const CharacterSection: React.FC = () => {
     );
   };
 
+  const calculateNumberOfCharactersToFixCarousel = () => {
+    // calculate the number of items in the carousel to put invisible divs to fill the space so the carousel can work properly withouth breaking the layout
+
+    const numberOfCharacters = characters.length;
+    let numberOfInvisibleDivs = 0;
+
+    if (numberOfCharacters % 4 === 0) {
+      numberOfInvisibleDivs = 0;
+    } else if (numberOfCharacters % 4 === 1) {
+      numberOfInvisibleDivs = 3;
+    } else if (numberOfCharacters % 4 === 2) {
+      numberOfInvisibleDivs = 2;
+    } else if (numberOfCharacters % 4 === 3) {
+      numberOfInvisibleDivs = 1;
+    }
+
+    return numberOfInvisibleDivs;
+  };
+
   return (
     <>
       {/* background div for desktop version */}
@@ -480,6 +512,19 @@ const CharacterSection: React.FC = () => {
                 </div>
               );
             })}
+
+            {/* invisible divs to fix the carousel layout */}
+
+            {isDekstop &&
+              Array.from({
+                length: calculateNumberOfCharactersToFixCarousel(),
+              }).map((_, index) => {
+                return (
+                  <div className="w-screen lg:w-1/4 lg:h-[85vh] flex items-end">
+                    <div className="w-full h-full"></div>
+                  </div>
+                );
+              })}
           </Flickity>
         </div>
       </section>

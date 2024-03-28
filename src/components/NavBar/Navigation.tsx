@@ -4,9 +4,11 @@ import Swal from "sweetalert2";
 const Navigation = ({
   tracker,
   position,
+  toggleNav,
 }: {
   tracker: boolean;
   position: "left" | "right";
+  toggleNav: () => void;
 }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -26,14 +28,32 @@ const Navigation = ({
     }
   }, [tracker, position]);
 
+  const profilePictures = [
+    "/CharacterSection/profile/Aika Profile.png",
+    "/CharacterSection/profile/Madger Profile.png",
+    "/CharacterSection/profile/Málanus Profile.png",
+    "/CharacterSection/profile/San Profile.png",
+    "/CharacterSection/profile/Singer Profile.png",
+  ];
+
+  const returnRandomCharacterPicture = () => {
+    const result =
+      profilePictures[Math.floor(Math.random() * profilePictures.length)];
+
+    console.log(result);
+
+    return result;
+  };
+
   // rendering the reader in production alert till Rithual reader is ready
   // i put this function here as well because when i passed it as a prop to the Navigation component, it was not working
   const readerInProduction = () => {
+    toggleNav();
+
     return Swal.fire({
       title: '<strong style="color: pink">(૨¡Ƭષαℓ Reader</strong> em produção!',
       text: "Estamos desenvolvendo o leitor do Rithual para que você possa ter a melhor experiência lendo esse mangá, enquanto ele não está pronto, você pode ler no Tapas.io",
-      imageUrl:
-        "https://cdn.discordapp.com/attachments/421344962303623189/1146492460294475907/image.png",
+      imageUrl: returnRandomCharacterPicture(),
       background: "rgb(31, 31, 31)",
       color: "white",
       imageWidth: "60%",
@@ -56,13 +76,19 @@ const Navigation = ({
       <div>
         <ul className="navUl text-right mt-[5vh] text-xl flex flex-col gap-[5vh]">
           <li>
-            <a href="#home">Home</a>
+            <a href="#home" onClick={toggleNav}>
+              Home
+            </a>
           </li>
           <li>
-            <a href="#characterSection">Personagens</a>
+            <a href="#characterSection" onClick={toggleNav}>
+              Personagens
+            </a>
           </li>
           <li>
-            <a href="#chapterSection">Capítulos</a>
+            <a href="#chapterSection" onClick={toggleNav}>
+              Capítulos
+            </a>
           </li>
           <li>
             <a href="#" onClick={readerInProduction}>
