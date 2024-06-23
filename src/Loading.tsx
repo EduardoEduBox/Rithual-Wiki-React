@@ -1,10 +1,14 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { LuEye } from "react-icons/lu";
 import Typewriter from "typewriter-effect";
 import gsap from "gsap";
+import { LanguageContext } from "./context/LanguageContext";
+import { useTranslation } from "react-i18next";
 
 const Loading: React.FC = () => {
-  const texts = ["Carregando.....", "Renderizando o universo.....", "Pronto!"];
+  const { language } = useContext(LanguageContext);
+  const { t } = useTranslation();
+
   const [percentage, setPercentage] = useState(0);
   const [transitionStart, setTransitionStart] = useState(false);
   const welcomeRef = useRef(null);
@@ -25,7 +29,6 @@ const Loading: React.FC = () => {
 
   useEffect(() => {
     if (transitionStart) {
-      // Animação para cada letra
       gsap.to(".letter", {
         y: 0,
         opacity: 1,
@@ -37,7 +40,6 @@ const Loading: React.FC = () => {
 
   const splitText = (text: string) => {
     return text.split("").map((letter, index) => {
-      // Checa se o caractere é um espaço
       if (letter === " ") {
         return (
           <span key={index} style={{ display: "inline-block", width: "0.5em" }}>
@@ -79,6 +81,10 @@ const Loading: React.FC = () => {
     }
   }, [transitionStart]);
 
+  if (!language) {
+    return null; // Don't render the loading component if the language is not set
+  }
+
   return (
     <div
       className={`h-screen fixed w-screen z-[9999] ${
@@ -105,13 +111,13 @@ const Loading: React.FC = () => {
                 }}
                 onInit={(typewriter) => {
                   typewriter
-                    .typeString(texts[0])
+                    .typeString(t("loadingText"))
                     .pauseFor(300)
                     .deleteAll()
-                    .typeString(texts[1])
+                    .typeString(t("renderingText"))
                     .pauseFor(300)
                     .deleteAll()
-                    .typeString(texts[2])
+                    .typeString(t("readyText"))
                     .start();
                 }}
               />
@@ -126,7 +132,7 @@ const Loading: React.FC = () => {
             className="px-5 text-4xl font-semibold text-center text-shadow-darker lg:text-5xl"
             ref={welcomeRef}
           >
-            {splitText("Seja bem vindo ao ")}
+            {splitText(t("loadingWelcomeText"))}
             <br />
             <span className="text-pink-200 text-glow-pink">
               {splitText("(૨¡Ƭષαℓ ")}

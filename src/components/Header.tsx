@@ -1,48 +1,38 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const Header: React.FC = () => {
-  class allImages {
-    bgImage: string;
-    ballColor: string;
-    bgCharacter: string;
-    constructor(bgImage: string, ballColor: string, bgCharacter: string) {
-      this.bgImage = bgImage;
-      this.ballColor = ballColor;
-      this.bgCharacter = bgCharacter;
-    }
-  }
+  const { t } = useTranslation();
 
-  const bgImages: allImages[] = [
-    new allImages(
-      "/Header/backgroundPics/backgroundHeader.png",
-      "bg-[#ff0000]",
-      "/Header/characters/demonio_cap_0_site_prototipo.png"
-    ),
-    new allImages(
-      "/Header/backgroundPics/backgroundHeader3.png",
-      "bg-[#5aceff]",
-      "/Header/characters/singer_cap_3_site_prototipo.png"
-    ),
-    new allImages(
-      "/Header/backgroundPics/backgroundHeader2.png",
-      "bg-[#9400d3]",
-      "/Header/characters/málanus_cap_2_site_prototipo.png"
-    ),
+  const bgImages = [
+    {
+      bgImage: "/Header/backgroundPics/backgroundHeader.png",
+      ballColor: "bg-[#ff0000]",
+      bgCharacter: "/Header/characters/demonio_cap_0_site_prototipo.png",
+    },
+    {
+      bgImage: "/Header/backgroundPics/backgroundHeader3.png",
+      ballColor: "bg-[#5aceff]",
+      bgCharacter: "/Header/characters/singer_cap_3_site_prototipo.png",
+    },
+    {
+      bgImage: "/Header/backgroundPics/backgroundHeader2.png",
+      ballColor: "bg-[#9400d3]",
+      bgCharacter: "/Header/characters/málanus_cap_2_site_prototipo.png",
+    },
   ];
 
-  const parasite: allImages = new allImages(
-    "/Header/backgroundPics/tortura.png",
-    "bg-[#ff0000]",
-    "/Header/characters/iseeyou.png"
-  );
-
-  // Use a single state to control the current image index
+  const parasite = {
+    bgImage: "/Header/backgroundPics/tortura.png",
+    ballColor: "bg-[#ff0000]",
+    bgCharacter: "/Header/characters/iseeyou.png",
+  };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isParasiteActive, setIsParasiteActive] = useState(false);
   const [checker, setChecker] = useState(false);
+  const [hahaText, setHahaText] = useState("HAHAHA");
 
-  // Preload images (consider doing this outside of the component or in useEffect if images are static)
   useEffect(() => {
     const preloadImages = () => {
       bgImages.forEach((img) => {
@@ -57,12 +47,10 @@ const Header: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Change image every 9700ms
     const intervalId = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % bgImages.length);
     }, 9700);
 
-    // Activate parasite after 30 seconds
     setTimeout(() => {
       setChecker(true);
     }, 30000);
@@ -72,21 +60,16 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     if (checker) {
-      // Random chance to activate parasite
-      const shouldActivateParasite = Math.random() < 0.1; // Adjust probability as needed
+      const shouldActivateParasite = Math.random() < 0.1;
       if (shouldActivateParasite) {
         setIsParasiteActive(true);
 
-        // Deactivate parasite after a short time
         setTimeout(() => {
           setIsParasiteActive(false);
-        }, 250); // Adjust timing as needed
+        }, 250);
       }
     }
   }, [currentImageIndex, checker]);
-
-  // function that returns text HAHAHA but it grows with time, so it looks like it's laughing
-  const [hahaText, setHahaText] = useState("HAHAHA");
 
   useEffect(() => {
     if (isParasiteActive) {
@@ -97,12 +80,10 @@ const Header: React.FC = () => {
         setHahaText(currentText);
       }, intervalTime);
 
-      // Stop growing the text after a certain condition or time
       setTimeout(() => {
         clearInterval(intervalId);
-      }, 250); // Example: stop growing after 1 second
+      }, 250);
 
-      // Clean up the interval when the component is unmounted or the parasite is deactivated
       return () => clearInterval(intervalId);
     }
   }, [isParasiteActive]);
@@ -130,66 +111,35 @@ const Header: React.FC = () => {
       </div>
 
       <div className="flex flex-col items-center justify-center h-full lg:w-3/5 lg:pr-52 lg:pl-16 lg:pb-5">
-        <h1
-          className={`text-4xl font-bold leading-[3rem] text-center mt-28 text-shadow-darker lg:text-6xl lg:leading-[5rem] lg:mt-36 ${
-            isParasiteActive ? "text-red-600" : "text-pink-200"
-          }`}
-        >
-          {isParasiteActive ? (
-            "Eu vejo você"
-          ) : (
-            <>
-              Bem vindos ao <br /> (૨¡Ƭષαℓ
-            </>
-          )}
-        </h1>
+        {isParasiteActive ? (
+          <h1 className="text-6xl font-bold text-center text-red-600 text-shadow-darker">
+            {t("parasiteTitle")}
+          </h1>
+        ) : (
+          <h1
+            className={`text-4xl font-bold leading-[3rem] text-center mt-28 text-shadow-darker lg:text-6xl lg:leading-[5rem] lg:mt-36 text-pink-200`}
+            dangerouslySetInnerHTML={{ __html: t("welcomeText") }}
+          />
+        )}
 
         <div className="flex items-center justify-center h-full px-5">
           <p
-            className={`p-5 text-lg leading-6 text-center bg-black bg-opacity-50 rounded-2xl lg:text-2xl
-            ${isParasiteActive && "font-ancestral"}
-          `}
-          >
-            {isParasiteActive ? (
-              <>
-                "e todos eles ergueram suas cabeças ao céu com um olhar
-                explícito de terror, temendo o que encontrariam em seus futuros.
-                Repentinamente, a escuridão da morte os consumiu em seu abraço
-                cruel."
-              </>
-            ) : (
-              <>
-                <span className="mr-1 font-bold">(૨¡Ƭષαℓ</span>é um mangá
-                brasileiro sobre um mundo que presencia conflitos sangrentos
-                entre humanos e demônios que disputam influência sobre a
-                sociedade. Nesta história, você irá acompanhar a vida de
-                <strong className="ml-1 text-blue-300 text-glow-blue">
-                  Singer
-                </strong>
-                , um garoto tímido e bastante sorridente que está descobrindo o
-                mundo pela primeira vez ao lado de seus amigos{" "}
-                <strong className="ml-1 text-pink-300 text-glow-pink">
-                  Aika
-                </strong>
-                ,
-                <strong className="ml-1 text-orange-300 text-glow-orange">
-                  San
-                </strong>{" "}
-                e
-                <strong className="ml-1 text-green-300 text-glow-green">
-                  Madger
-                </strong>
-                .
-              </>
-            )}
-          </p>
+            className={`p-5 text-lg leading-6 text-center bg-black bg-opacity-50 rounded-2xl lg:text-2xl ${
+              isParasiteActive && "font-ancestral"
+            }`}
+            dangerouslySetInnerHTML={{
+              __html: isParasiteActive
+                ? t("parasiteText")
+                : t("headerDescription"),
+            }}
+          />
         </div>
         <h1
           className={`text-2xl font-bold text-center ${
             isParasiteActive ? "text-red-600" : "text-pink-200"
           } text-shadow-darker`}
         >
-          {isParasiteActive ? hahaText : " Conheça mais esse universo!"}
+          {isParasiteActive ? hahaText : t("headerKnowMoreButton")}
         </h1>
         <a href="#chapterSection">
           <button
@@ -209,7 +159,7 @@ const Header: React.FC = () => {
                 isParasiteActive ? "text-red-600" : ""
               }`}
             >
-              {isParasiteActive ? "SOFRA" : "Capítulos"}
+              {isParasiteActive ? t("parasiteButton") : t("headerButton")}
             </span>
           </button>
         </a>
@@ -217,14 +167,12 @@ const Header: React.FC = () => {
 
       <div className="relative hidden w-2/5 lg:h-full lg:block">
         <div
-          className={`border absolute w-[500vw] 
-          ${
+          className={`border absolute w-[500vw] ${
             isParasiteActive
               ? parasite.ballColor
               : bgImages[currentImageIndex].ballColor
           } 
-          
-           h-screen rounded-[100vh_0%_0%] blur-[1.5vh] opacity-65 overflow-x-hidden z-30 top-[30vh] bottom-0 left-[-20vh] transition-all duration-500`}
+          h-screen rounded-[100vh_0%_0%] blur-[1.5vh] opacity-65 overflow-x-hidden z-30 top-[30vh] bottom-0 left-[-20vh] transition-all duration-500`}
         ></div>
         <img
           src={

@@ -5,11 +5,14 @@ import CharacterSection from "./components/CharacterSection";
 import Footer from "./components/Footer";
 import ChapterSection from "./components/ChapterSection";
 import Loading from "./Loading";
+import { useTranslation } from "react-i18next";
 
 const App: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <>
-      {/* <Loading /> */}
+      <Loading />
 
       <Navbar />
       <Header />
@@ -17,7 +20,7 @@ const App: React.FC = () => {
       <ChapterSection />
       <Footer />
       <div className="flex items-end justify-center h-screen pb-16 opacity-20">
-        Nada aqui ainda, amigo...
+        {t("nothingText")}
       </div>
     </>
   );

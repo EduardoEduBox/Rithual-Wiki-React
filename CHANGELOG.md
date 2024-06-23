@@ -8,3 +8,12 @@ New character added to the character section, nav bar updated for mobile version
 
 - Character Málanus added in the character section
 - toggleNav function now executing when clicking on elements in the nav bar for mobile version
+
+## 2024-06-23 [Eduardo Barbosa]
+
+Enlgish version of the website available
+
+### Added
+
+- New availability for English language version for this website
+- Language switcher in the navbar to easily toggle the language of the website between Portuguese and English

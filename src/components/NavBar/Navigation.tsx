@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 import Swal from "sweetalert2";
+import LanguageSwitcher from "../../LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Navigation = ({
   tracker,
@@ -11,6 +13,7 @@ const Navigation = ({
   toggleNav: () => void;
 }) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const sectionEl = sectionRef.current;
@@ -18,12 +21,12 @@ const Navigation = ({
     if (sectionEl) {
       if (tracker) {
         sectionEl.style.transition = "transform 0.2s ease";
-        sectionEl.style.transform = "translateX(0)"; // Slide in from the left
+        sectionEl.style.transform = "translateX(0)";
       } else {
         sectionEl.style.transition = "transform 0.2s ease";
         sectionEl.style.transform = `translateX(${
           position === "left" ? 0 : "calc(100% + 1.5rem)"
-        })`; // Initially hidden to the right or left
+        })`;
       }
     }
   }, [tracker, position]);
@@ -45,14 +48,12 @@ const Navigation = ({
     return result;
   };
 
-  // rendering the reader in production alert till Rithual reader is ready
-  // i put this function here as well because when i passed it as a prop to the Navigation component, it was not working
   const readerInProduction = () => {
     toggleNav();
 
     return Swal.fire({
-      title: '<strong style="color: pink">(૨¡Ƭષαℓ Reader</strong> em produção!',
-      text: "Estamos desenvolvendo o leitor do Rithual para que você possa ter a melhor experiência lendo esse mangá, enquanto ele não está pronto, você pode ler no Tapas.io",
+      title: `<strong style="color: pink">${t("readerTitle")}</strong>`,
+      text: t("readerText"),
       imageUrl: returnRandomCharacterPicture(),
       background: "rgb(31, 31, 31)",
       color: "white",
@@ -61,8 +62,9 @@ const Navigation = ({
       imageAlt: "san pensativo",
       showCancelButton: true,
       cancelButtonText: "Ok",
-      confirmButtonText:
-        '<strong style="color: lightblue"><a href="https://tapas.io/series/Rithual_manga/info">Tapas.io</a></strong>',
+      confirmButtonText: `<strong style="color: lightblue"><a href="${t(
+        "readerLinkText"
+      )}">Tapas.io</a></strong>`,
       confirmButtonColor: "#ff009d",
     });
   };
@@ -75,27 +77,29 @@ const Navigation = ({
     >
       <div>
         <ul className="navUl text-right mt-[5vh] text-xl flex flex-col gap-[5vh]">
-          <li>
+          <li key="home">
             <a href="#home" onClick={toggleNav}>
-              Home
+              {t("home")}
             </a>
           </li>
-          <li>
+          <li key="characterSection">
             <a href="#characterSection" onClick={toggleNav}>
-              Personagens
+              {t("characters")}
             </a>
           </li>
-          <li>
+          <li key="chapterSection">
             <a href="#chapterSection" onClick={toggleNav}>
-              Capítulos
+              {t("chapters")}
             </a>
           </li>
-          <li>
+          <li key="reader">
             <a href="#" onClick={readerInProduction}>
-              Ler agora
+              {t("readNow")}
             </a>
           </li>
           <hr className="w-full bg-white" />
+
+          <LanguageSwitcher />
         </ul>
       </div>
 

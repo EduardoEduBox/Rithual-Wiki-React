@@ -3,6 +3,7 @@ import Flickity from "react-flickity-component";
 import { useState, useRef } from "react";
 import { MdClose } from "react-icons/md";
 import { gsap } from "gsap";
+import { useTranslation } from "react-i18next";
 
 const CharacterSection: React.FC = () => {
   class Characters {
@@ -51,12 +52,14 @@ const CharacterSection: React.FC = () => {
     }
   }
 
+  const { t } = useTranslation();
+
   const characters: Characters[] = [
     new Characters(
       "characterSinger",
       "Singer Faksumi",
       17,
-      "um jovem aventureiro que nasceu no vilarejo Uxclavasa e sonha em conhecer o mundo e as maravilhas do reino de Belgadina e Ázuma!",
+      t("singerDescription"),
       "/CharacterSection/profile/Singer Profile.png",
       "/CharacterSection/withoutText/Singer withoutText.png",
       "/CharacterSection/withText/Singer corpo completo.png",
@@ -68,7 +71,7 @@ const CharacterSection: React.FC = () => {
       "characterAika",
       "Aika'nu Zumiki",
       19,
-      `Ainda sem registros...`,
+      t("noRegister"),
       "/CharacterSection/profile/Aika Profile.png",
       "/CharacterSection/withoutText/Aika withoutText.png",
       "/CharacterSection/withText/Aika corpo completo.png",
@@ -80,7 +83,7 @@ const CharacterSection: React.FC = () => {
       "characterMadger",
       "Madger Yasáshi",
       17,
-      "Artista marcial nascido na vila Yasáshi, após uma batalha curta e sangrenta, Madger perdeu pessoas preciosas quando ainda era criança, agora, ele busca honrar aqueles que lutaram por ele em sua antiga vila!",
+      t("madgerDescription"),
       "/CharacterSection/profile/Madger Profile.png",
       "/CharacterSection/withoutText/Madger withoutText.png",
       "/CharacterSection/withText/Madger corpo completo.png",
@@ -92,7 +95,7 @@ const CharacterSection: React.FC = () => {
       "characterSan",
       "San Majutsu-shi",
       19,
-      `Ainda sem registros...`,
+      t("noRegister"),
       "/CharacterSection/profile/San Profile.png",
       "/CharacterSection/withoutText/San withoutText.png",
       "/CharacterSection/withText/San corpo completo.png",
@@ -104,7 +107,7 @@ const CharacterSection: React.FC = () => {
       "characterMálanus",
       "Málanus Faksumi",
       25,
-      `Irmão mais velho de Singer, Málanus busca se tornar um dos líderes da resistência, para assim, encontrar o misterioso demônio de visor que lhe causou tanta dor.`,
+      t("málanusDescription"),
       "/CharacterSection/profile/Málanus Profile.png",
       "/CharacterSection/withoutText/Málanus withoutText.png",
       "/CharacterSection/withText/Málanus corpo completo.png",
@@ -216,9 +219,6 @@ const CharacterSection: React.FC = () => {
         },
       });
     } else {
-      console.log("mobile activated");
-      console.log(carouselRef.current, "carouselRef.current");
-
       // Start the fade-out animation
       gsap.to(carouselRef.current, {
         opacity: 0,
@@ -226,8 +226,6 @@ const CharacterSection: React.FC = () => {
         onComplete: () => {
           // After the fade-out completes, update the state to show new content
           setIsCharacterActive(true);
-
-          console.log(isCharacterActive, "isCharacterActive");
 
           // Animate the character information containers
           gsap.fromTo(
@@ -333,7 +331,7 @@ const CharacterSection: React.FC = () => {
       {/* background div for desktop version */}
       {/* i know this is a bad solution, but i am sick of trying to do this work >:( */}
       <div
-        className={`transition-all top-[150svh] border duration-500 absolute w-screen h-[52vh] after:h-[52vh]  bg-white opacity-15 bottom-[10%] 
+        className={`transition-all top-[150svh] border duration-500 absolute w-screen h-[52vh] after:h-[52vh]  bg-white opacity-15 bottom-[10%]
         -z-10 after:content-[''] after:transition-all after:duration-500 after:absolute  after:w-full after:bg-[#1c1c1c]  " ${
           !isDekstop ? "hidden" : ""
         }
@@ -348,10 +346,10 @@ const CharacterSection: React.FC = () => {
       <section className="relative" id="characterSection">
         <div className="relative flex items-center justify-center w-full mt-2 h-36 lg:h-52 lg:mb-5 lg:items-end">
           <h1 className="text-3xl font-bold text-pink-200 lg:text-8xl">
-            Personagens
+            {t("characters")}
           </h1>
           <strong className="absolute text-6xl lg:text-[9vw] text-customBlack -z-10 opacity-15 transform -translate-x-1/2 -translate-y-1/2 top-1/2 lg:bottom-14 left-1/2 text-shadow-pinkGlow lg:text-shadow-pinkGlowDekstop">
-            Personagens
+            {t("characters")}
           </strong>
         </div>
 
@@ -382,14 +380,18 @@ const CharacterSection: React.FC = () => {
               onClick={() => handleCloseButtonClick()}
             />
             <strong>
-              Idade:{" "}
-              <span
-                style={{
-                  color: characters[indexOfCharacterClicked].colorTheme,
-                }}
-              >
-                {characters[indexOfCharacterClicked].age}
-              </span>
+              {t("ageOfCharacter")}:{" "}
+              {characters[indexOfCharacterClicked].appeared ? (
+                <span
+                  style={{
+                    color: characters[indexOfCharacterClicked].colorTheme,
+                  }}
+                >
+                  {characters[indexOfCharacterClicked].age}
+                </span>
+              ) : (
+                <span className="opacity-50">?</span>
+              )}
             </strong>
           </div>
         </div>
@@ -454,7 +456,7 @@ const CharacterSection: React.FC = () => {
                 ref={ageTextDesktopRef}
                 className="relative text-2xl font-bold -top-8"
               >
-                Idade:{" "}
+                {t("ageOfCharacter")}:{" "}
                 {characters[indexOfCharacterClicked].appeared ? (
                   <span
                     style={{
@@ -475,7 +477,7 @@ const CharacterSection: React.FC = () => {
                   {characters[indexOfCharacterClicked].appeared ? (
                     characters[indexOfCharacterClicked].information
                   ) : (
-                    <span className="opacity-50">Ainda sem registros...</span>
+                    <span className="opacity-50">{t("noRegister")}</span>
                   )}
                 </p>
               </div>
@@ -500,7 +502,10 @@ const CharacterSection: React.FC = () => {
             {characters.map((character: Characters, index) => {
               character.preloadImages();
               return (
-                <div className="w-screen lg:w-1/4 lg:h-[85vh] flex items-end">
+                <div
+                  className="w-screen lg:w-1/4 lg:h-[85vh] flex items-end"
+                  key={character.name}
+                >
                   <img
                     className={`lg:max-w-none ${character.height}`}
                     src={character.withText}
@@ -518,7 +523,7 @@ const CharacterSection: React.FC = () => {
             {isDekstop &&
               Array.from({
                 length: calculateNumberOfCharactersToFixCarousel(),
-              }).map((_, index) => {
+              }).map((_) => {
                 return (
                   <div className="w-screen lg:w-1/4 lg:h-[85vh] flex items-end">
                     <div className="w-full h-full"></div>
